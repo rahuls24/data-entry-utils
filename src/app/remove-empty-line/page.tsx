@@ -1,7 +1,6 @@
 'use client';
 import Header from '@/components/Header';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
-import Link from 'next/link';
 import React, { useState } from 'react';
 
 const RemoveEmptyLine: React.FC = () => {
@@ -40,7 +39,7 @@ const RemoveEmptyLine: React.FC = () => {
 
 	return (
 		<div>
-			<Header />
+			<Header showNavigationArrow={true}/>
 
 			<div className='max-w-md mx-auto p-4 mt-8 bg-white border border-gray-300 rounded-lg shadow-md'>
 				<textarea
@@ -89,11 +88,6 @@ const RemoveEmptyLine: React.FC = () => {
 					Reset
 				</button>
 			</div>
-			<Link href='/'>
-				<button className='bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-gray hover:bg-gray-400 mt-5'>
-					Go Home
-				</button>
-			</Link>
 		</div>
 	);
 };
