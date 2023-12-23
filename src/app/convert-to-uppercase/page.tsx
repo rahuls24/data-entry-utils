@@ -1,12 +1,13 @@
 'use client'
 import Header from '@/components/Header';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const ConvertToUppercase: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [convertedText, setConvertedText] = useState('');
-  const [copiedText, copyToClipboard] = useCopyToClipboard();
+  const [copiedText, copyToClipboard, resetCopiedText] = useCopyToClipboard();
   const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -16,11 +17,11 @@ const ConvertToUppercase: React.FC = () => {
 
   const handleConvertToUppercase = async () => {
     try {
-      const uppercasedText = inputText.toUpperCase();
-      setConvertedText(uppercasedText);
+      const uppercaseText = inputText.toUpperCase();
+      setConvertedText(uppercaseText);
 
       // Use the copyToClipboard function from the hook
-      const success = await copyToClipboard(uppercasedText);
+      const success = await copyToClipboard(uppercaseText);
 
       if (success) {
         // Handle success if needed
@@ -38,6 +39,15 @@ const ConvertToUppercase: React.FC = () => {
       // Use the copyToClipboard function from the hook
       copyToClipboard(copiedText);
     }
+  };
+
+  const handleReset = () => {
+    setInputText('');
+    setConvertedText('');
+    setError(null);
+
+    // Reset the copied text without copying anything to the clipboard
+    resetCopiedText();
   };
 
   return (
@@ -81,7 +91,21 @@ const ConvertToUppercase: React.FC = () => {
             </button>
           </div>
         )}
+
+        <div className="flex items-center justify-between mt-4">
+          <button
+            className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-gray hover:bg-gray-400"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
       </div>
+      <Link href="/">
+            <button className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-gray hover:bg-gray-400 mt-5 md:m-8">
+              Back to Home
+            </button>
+          </Link>
     </div>
   );
 };
